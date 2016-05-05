@@ -6,7 +6,7 @@ f.close()
 
 setup(
     name='django-filter-mongoengine',
-    version='0.1.1',
+    version='0.1.2',
     description=('Django-filter-mongoengine is a reusable Django application inspired from django-filter for allowing'
                  ' mongoengine users to filter querysets dynamically.'),
     long_description=readme,
