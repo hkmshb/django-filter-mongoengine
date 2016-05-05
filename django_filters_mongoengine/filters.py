@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from datetime import timedelta
+from datetime import timedelta, date
 
 
 from django import forms
@@ -153,20 +153,17 @@ class DateRangeFilter(ChoiceFilter):
     options = {
         '': (_('Any date'), lambda qs, name: qs.all()),
         1: (_('Today'), lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
-            '%s__month' % name: now().month,
-            '%s__day' % name: now().day
+            '%s__gt' % name: date.today(),
         })),
         2: (_('Past 7 days'), lambda qs, name: qs.filter(**{
             '%s__gte' % name: _truncate(now() - timedelta(days=7)),
             '%s__lt' % name: _truncate(now() + timedelta(days=1)),
         })),
         3: (_('This month'), lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
-            '%s__month' % name: now().month
+            '%s__gt' % name: date(now().year, now().month, 1),
         })),
         4: (_('This year'), lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
+            '%s__gt' % name: date(now().year, 1, 1),
         })),
     }
 
